@@ -17,27 +17,19 @@ You should have received a copy of the GNU General Public License
 along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include <string>
+#include <iostream>
+#include "data_structures.cpp"
 
-namespace list {
-	struct node {
-		node();
-		node(std::string);//string contstructor
-		node* next;
-		std::string word;
-	};
+int main(int argc, const char *argv[])
+{
+	list::linked_list l;//error in destructor
+	list::node *A = new list::node("word1");
+	list::node *B = new list::node("word2");
+	list::node *C = new list::node("word3");
 
-	class linked_list {
-	public:
-		linked_list();
-		virtual ~linked_list();
+	l.add_node(A);
+	//l.add_node(*B);
+	//l.add_node(*C);
 
-		bool add_node(node*);//append a node to the list
-		node get_node(unsigned int);
-	
-	private:
-		node head_node;
-		node * head;
-		unsigned int length;
-	};
+	return 0;
 }
