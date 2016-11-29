@@ -36,7 +36,6 @@ namespace list {
 		node get_node(unsigned int);
 	
 	private:
-		node head_node;
 		node * head;
 		unsigned int length;
 	};

@@ -22,14 +22,12 @@ along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 
 int main(int argc, const char *argv[])
 {
-	list::linked_list l;//error in destructor
+	list::linked_list l;
 	list::node *A = new list::node("word1");
-	list::node *B = new list::node("word2");
-	list::node *C = new list::node("word3");
+	list::node *B = new list::node("alf");
 
 	l.add_node(A);
-	//l.add_node(*B);
-	//l.add_node(*C);
+	l.add_node(B);
 
 	return 0;
 }

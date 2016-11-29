@@ -18,28 +18,40 @@ along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 #include "data_structures.h"
+#include <iostream>
 
 using namespace list;
 
 linked_list::linked_list() {
-	head = &head_node;
-	head->next = NULL;
+	head = NULL;
 	length = 0;
 }
 
 //append a node to the list
 bool linked_list::add_node(node *new_node) {
 	if (length >= UINT_MAX) {
+		
 		return false;
 	}
 
-	node  *current_node = head;
-	node *next_node = head;
-	while (next_node) {//traverse until the next pointer is null (end of list)
-		current_node = next_node;
+	node  *current_node;
+	node *next_node;
+	current_node = head;
+	next_node = head;
+
+	if (head) {
+		while (next_node) {//traverse until the next pointer is null (end of list)
+			current_node = next_node;
+			next_node = current_node->next;
+		}
+		current_node->next = new_node;//set the next pointer to the new node
 		next_node = current_node->next;
+	} 
+	else {
+		head = new_node;
+		std::cout<<head->word<<std::endl;
 	}
-	current_node->next = new_node;//set the next pointer to the new node
+	
 	length++;
 
 	return true;
@@ -63,7 +75,7 @@ node linked_list::get_node(unsigned int count) {
 linked_list::~linked_list() {
 	node *current_node;
 	node *next_node;
-	next_node = head->next;;
+	next_node = head->next;
 	while (next_node) {
 		current_node = next_node;
 		next_node = current_node->next;
