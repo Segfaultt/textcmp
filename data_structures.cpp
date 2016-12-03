@@ -62,11 +62,12 @@ bool linked_list::add_node(std::string new_word) {
 }
 
 node linked_list::get_node(unsigned int count) { 
-	if (count > length) 
-	return *head;
+	if (count > length || count < 1) {//check if in domain
+		std::cerr<<"error: trying to get a node that doesn't exist\n";
+		return *head;
+	}
 
-	node  *current_node = head;
-	node *next_node = head;
+	node *current_node = head, *next_node = head;
 	for (int i = 0; i < count; i++) {
 		current_node = next_node;
 		next_node = current_node->next;
