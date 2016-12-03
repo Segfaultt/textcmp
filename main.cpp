@@ -23,11 +23,10 @@ along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 int main(int argc, const char *argv[])
 {
 	list::linked_list l;
-	list::node *A = new list::node("word1");
-	list::node *B = new list::node("alf");
 
-	l.add_node(A);
-	l.add_node(B);
+	l.add_node("Rob");
+	l.add_node("Cliff");
+	l.add_node("Barb");;
 
 	return 0;
 }

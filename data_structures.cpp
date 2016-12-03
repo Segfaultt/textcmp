@@ -28,9 +28,11 @@ linked_list::linked_list() {
 }
 
 //append a node to the list
-bool linked_list::add_node(node *new_node) {
+bool linked_list::add_node(std::string new_word) {
 	if (length >= UINT_MAX)
 		return false;
+	
+	node* new_node = new node(new_word);//create new node
 
 	if (head) {
 		node  *current_node;

@@ -32,7 +32,7 @@ namespace list {
 		linked_list();
 		virtual ~linked_list();
 
-		bool add_node(node*);//append a node to the list
+		bool add_node(std::string);//append a node to the list
 		node get_node(unsigned int);
 	
 	private:
