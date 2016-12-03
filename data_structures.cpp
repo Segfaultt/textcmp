@@ -29,27 +29,29 @@ linked_list::linked_list() {
 
 //append a node to the list
 bool linked_list::add_node(node *new_node) {
-	if (length >= UINT_MAX) {
-		
+	if (length >= UINT_MAX)
 		return false;
-	}
-
-	node  *current_node;
-	node *next_node;
-	current_node = head;
-	next_node = head;
 
 	if (head) {
+		node  *current_node;
+		node *next_node;
+		current_node = head;
+		next_node = current_node->next;
+
 		while (next_node) {//traverse until the next pointer is null (end of list)
 			current_node = next_node;
 			next_node = current_node->next;
 		}
+		#ifndef NDEBUG
+			std::cout<<"node \""<<current_node->word<<"\" set to point to node \""<<new_node->word<<'\"'<<std::endl;
+		#endif
 		current_node->next = new_node;//set the next pointer to the new node
-		next_node = current_node->next;
 	} 
 	else {
+		#ifndef NDEBUG
+			std::cout<<"head set to point to node \""<<new_node->word<<'\"'<<std::endl;
+		#endif
 		head = new_node;
-		std::cout<<head->word<<std::endl;
 	}
 	
 	length++;
@@ -75,12 +77,15 @@ node linked_list::get_node(unsigned int count) {
 linked_list::~linked_list() {
 	node *current_node;
 	node *next_node;
-	next_node = head->next;
+	next_node = head;
 	while (next_node) {
 		current_node = next_node;
 		next_node = current_node->next;
-		if (next_node) {
-			std::cout<<current_node->word;
+		if (current_node) {
+			#ifndef NDEBUG
+				std::cout<<"deleting node \""<<current_node->word<<'\"'<<std::endl;
+			#endif
+
 			delete current_node;
 		}
 	}
@@ -90,6 +95,8 @@ node::node() {
 	word = "[EMPTY]";
 	next = NULL;
 }
+
 node::node(std::string a) {
 	word = a;
+	next = NULL;
 }
