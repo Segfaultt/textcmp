@@ -19,24 +19,47 @@ along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <string>
 
-namespace list {
-	struct node {
-		node();
-		node(std::string);//string contstructor
-		node* next;
-		std::string word;
-	};
+//========================Linked_list========================
+struct node {
+	node();
+	node(std::string);//string contstructor
+	node *next;
+	std::string word;
+};
 
-	class linked_list {
+class linked_list {
 	public:
-		linked_list();
-		virtual ~linked_list();
+	linked_list();
+	virtual ~linked_list();
 
-		bool add_node(std::string);//append a node to the list
-		node get_node(unsigned int);
-	
+	bool add_node(std::string);//append a node to the list
+	node get_node(unsigned int);
+
 	private:
-		node * head;
-		unsigned int length;
-	};
-}
+	node *head;
+	unsigned int length;
+};
+
+//========================Binary trees========================
+struct leaf {
+	leaf();
+	leaf(std::string);
+
+	leaf *next_greater;
+	leaf *next_lesser;
+
+	std::string word;
+};
+
+class binary_tree {
+	public:
+	binary_tree();
+	virtual ~binary_tree();
+
+	bool add_leaf(std::string); //return true if it is successful
+	bool search_tree(std::string);//return true if it is fount
+
+	private:
+	leaf *head;
+	unsigned int length;
+};

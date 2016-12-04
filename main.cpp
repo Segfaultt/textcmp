@@ -16,17 +16,31 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 */
-
+#define NDEBUG
 #include <iostream>
 #include "data_structures.cpp"
 
 int main(int argc, const char *argv[])
 {
-	list::linked_list l;
+	linked_list list;
+	binary_tree tree;
+	
+	tree.add_leaf("Foo");
+	tree.add_leaf("Bar");
+	tree.add_leaf("Foobar");
+	tree.add_leaf("Barb");
+	tree.add_leaf("Jordan");
+	tree.add_leaf("Sophie");
+	tree.add_leaf("Sarah");
+	tree.add_leaf("Matthew");
+	tree.add_leaf("John");
+	tree.add_leaf("Jacob");
+	tree.add_leaf("Barb");
 
-	l.add_node("Rob");
-	l.add_node("Cliff");
-	l.add_node("Barb");;
-
+	if (tree.search_tree(argv[1])) 
+		std::cout<<argv[1]<<" is in the tree\n";
+	else
+		std::cout<<argv[1]<<" is not in the tree\n";
+	
 	return 0;
 }

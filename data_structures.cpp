@@ -20,8 +20,7 @@ along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 #include "data_structures.h"
 #include <iostream>
 
-using namespace list;
-
+//========================Linked_list========================
 linked_list::linked_list() {
 	head = NULL;
 	length = 0;
@@ -95,11 +94,127 @@ linked_list::~linked_list() {
 }
 
 node::node() {
+	#ifndef NDEBUG
+		std::cout<<"construcing a default node\n";
+	#endif
 	word = "[EMPTY]";
 	next = NULL;
 }
 
 node::node(std::string a) {
+	#ifndef NDEBUG
+		std::cout<<"construcing node \""<<a<<"\"\n";
+	#endif
+
 	word = a;
 	next = NULL;
+}
+
+//========================Binary trees========================
+leaf::leaf() {
+	#ifndef NDEBUG
+		std::cout<<"constructing a default leaf\n";
+	#endif
+	next_greater = NULL;
+	next_lesser = NULL;
+	word = "[EMPTY]";
+}
+
+leaf::leaf(std::string input_word) {
+	#ifndef NDEBUG
+		std::cout<<"constructing leaf \""<<input_word<<"\"\n";
+	#endif
+	next_greater = NULL;
+	next_lesser = NULL;
+	word = input_word;
+}
+
+binary_tree::binary_tree() {
+	head = NULL;
+	length = 0;
+}
+
+binary_tree::~binary_tree() {}
+
+bool binary_tree::add_leaf(std::string new_word) {
+	if (length >= UINT_MAX)
+		return false;
+
+	leaf *new_leaf = new leaf(new_word);
+
+	if (head) {//if there are any leaves
+		leaf *current_leaf, *next_leaf;
+		next_leaf = head;
+
+		//traverse until an empty place or duplicate is found
+		do {
+			current_leaf = next_leaf;
+			if (new_word.compare(current_leaf->word) > 0) 
+				next_leaf = current_leaf->next_greater;
+			else if (new_word.compare(current_leaf->word) < 0)
+				next_leaf = current_leaf->next_lesser;
+			else {
+				#ifndef NDEBUG
+					std::cout<<current_leaf->word<<" already exists in the tree"<<std::endl;
+				#endif
+				delete new_leaf;//delete the now needless leaf
+				return true;
+			}
+		} while (next_leaf != NULL);
+
+		//set the lesser or greater pointer to the new leaf
+		if (new_word.compare(current_leaf->word) > 0) {
+			current_leaf->next_greater = new_leaf;
+		#ifndef NDEBUG
+			std::cout<<current_leaf->word<<" greater pointer set to leaf \""<<new_leaf->word<<'\"'<<std::endl;
+		#endif
+		} else {
+			current_leaf->next_lesser = new_leaf;
+		#ifndef NDEBUG
+			std::cout<<current_leaf->word<<" lesser pointer set to leaf \""<<new_leaf->word<<'\"'<<std::endl;
+		#endif
+		}
+	} else {
+		#ifndef NDEBUG
+			std::cout<<"head set to point to leaf \""<<new_leaf->word<<'\"'<<std::endl;
+		#endif
+		head = new_leaf;
+	}
+
+	length++;
+	return true;
+}
+
+bool binary_tree::search_tree(std::string target_word) {
+	if (length >= UINT_MAX)
+		return false;
+
+	leaf *new_leaf = new leaf(target_word);
+
+	if (head) {//if there are any leaves
+		leaf *current_leaf, *next_leaf;
+		next_leaf = head;
+
+		//traverse until an empty place or duplicate is found
+		do {
+			current_leaf = next_leaf;
+			if (target_word.compare(current_leaf->word) > 0) 
+				next_leaf = current_leaf->next_greater;
+			else if (target_word.compare(current_leaf->word) < 0)
+				next_leaf = current_leaf->next_lesser;
+			else {
+				#ifndef NDEBUG
+					std::cout<<current_leaf->word<<" exists in the tree"<<std::endl;
+				#endif
+				return true;
+			}
+		} while (next_leaf != NULL);
+
+	} else {
+		#ifndef NDEBUG
+			std::cout<<"tree is empty\n";
+		#endif
+	}
+
+	return false;
 }
