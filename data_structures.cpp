@@ -17,8 +17,9 @@ You should have received a copy of the GNU General Public License
 along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-#include "data_structures.h"
 #include <iostream>
+#include <climits>
+#include "data_structures.h"
 
 //========================Linked_list========================
 linked_list::linked_list() {
@@ -134,7 +135,9 @@ binary_tree::binary_tree() {
 	length = 0;
 }
 
-binary_tree::~binary_tree() {}
+binary_tree::~binary_tree() {
+	delete_leaf(head);
+}
 
 bool binary_tree::add_leaf(std::string new_word) {
 	if (length >= UINT_MAX)
@@ -217,4 +220,12 @@ bool binary_tree::search_tree(std::string target_word) {
 	}
 
 	return false;
+}
+
+void binary_tree::delete_leaf(leaf *leaf) {
+	if (leaf) {
+		delete_leaf(leaf->next_greater);
+		delete_leaf(leaf->next_lesser);
+		delete leaf;
+	}
 }

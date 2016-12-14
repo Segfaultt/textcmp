@@ -17,30 +17,58 @@ You should have received a copy of the GNU General Public License
 along with textcmp.  If not, see <http://www.gnu.org/licenses/>.
 */
 #define NDEBUG
+
 #include <iostream>
+#include <fstream>
 #include "data_structures.cpp"
+#include "parse.cpp"
 
 int main(int argc, const char *argv[])
 {
-	linked_list list;
-	binary_tree tree;
 	
-	tree.add_leaf("Foo");
-	tree.add_leaf("Bar");
-	tree.add_leaf("Foobar");
-	tree.add_leaf("Barb");
-	tree.add_leaf("Jordan");
-	tree.add_leaf("Sophie");
-	tree.add_leaf("Sarah");
-	tree.add_leaf("Matthew");
-	tree.add_leaf("John");
-	tree.add_leaf("Jacob");
-	tree.add_leaf("Barb");
+	//========================Preparations========================
+	#define USAGE std::cout<<"USAGE: "<<argv[0]<<" <options> <file1> <file2>\n"\
+	<<"OPTIONS:\n\t-u\tdisplay all words unique to file2\n\t-c\tdisplay all words common to both files\n"\
+	<<"EXAMPLES\n\t"<<argv[0]<<" -uc example1.txt example2.txt\n";
+	
+	//check arguments
+	if (argc != 4) {
+		USAGE
+		return -1;
+	}
 
-	if (tree.search_tree(argv[1])) 
-		std::cout<<argv[1]<<" is in the tree\n";
-	else
-		std::cout<<argv[1]<<" is not in the tree\n";
-	
+	//check options
+	bool u, c;
+	if ((std::string)argv[1] == "-uc" | (std::string)argv[1] == "-cu") {
+		u = true;
+		c = true;
+	} else if ((std::string)argv[1] == "-u") {
+		u = true;
+		c = false;
+	} else if ((std::string)argv[1] == "-c") {
+		u = false;
+		c = true;
+	} else {
+		std::cerr<<"unknown option(s) \""<<argv[1]<<"\"\n\n";
+		USAGE
+		return -2;
+	}
+
+	std::fstream file1(argv[2]), file2(argv[3]);//open files
+
+	//check if files were opened 
+	if (!file1.is_open()) {
+		std::cerr<<"error opening \""<<argv[2]<<"\"\n";
+		return -3;
+	}
+	if (!file2.is_open()) {
+		std::cerr<<"error opening \""<<argv[3]<<"\"\n";
+		return -3;
+	}
+
+	//parse file into binary tree
+	binary_tree tree;
+	parse_to_tree(tree, file1);
+
 	return 0;
 }

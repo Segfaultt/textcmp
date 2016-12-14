@@ -62,4 +62,5 @@ class binary_tree {
 	private:
 	leaf *head;
 	unsigned int length;
+	void delete_leaf(leaf*);
 };
