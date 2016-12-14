@@ -33,6 +33,7 @@ class linked_list {
 	virtual ~linked_list();
 
 	bool add_node(std::string);//append a node to the list
+	unsigned int get_length();
 	node get_node(unsigned int);
 
 	private:

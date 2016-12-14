@@ -81,5 +81,22 @@ int main(int argc, const char *argv[])
 			unique.add_node(read);
 	}
 
+	//========================Output========================
+	if (c) {
+		std::cout<<"\nCommon words in both files\n";
+
+		for (unsigned int count = 1; count < common.get_length(); count++) {
+			std::cout<<'\t'<<common.get_node(count).word<<std::endl;
+		}
+	}
+	
+	if (u) {
+		std::cout<<"\nUnique words in file2\n";
+
+		for (unsigned int count = 1; count < unique.get_length(); count++) {
+			std::cout<<'\t'<<unique.get_node(count).word<<std::endl;
+		}
+	}
+
 	return 0;
 }

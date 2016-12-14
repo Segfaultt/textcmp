@@ -61,6 +61,10 @@ bool linked_list::add_node(std::string new_word) {
 	return true;
 }
 
+unsigned int linked_list::get_length() {
+	return length;
+}
+
 node linked_list::get_node(unsigned int count) { 
 	if (count > length || count < 1) {//check if in domain
 		std::cerr<<"error: trying to get a node that doesn't exist\n";
