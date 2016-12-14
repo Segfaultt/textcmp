@@ -70,5 +70,16 @@ int main(int argc, const char *argv[])
 	binary_tree tree;
 	parse_to_tree(tree, file1);
 
+	//========================Processing========================
+	std::string read;
+	linked_list common, unique;
+
+	while (file2>>read) {//sort words in file2
+		if (tree.search_tree(read))
+			common.add_node(read);
+		else
+			unique.add_node(read);
+	}
+
 	return 0;
 }
