@@ -91,7 +91,7 @@ int main(int argc, const char *argv[])
 	}
 	
 	if (u) {
-		std::cout<<"\nUnique words in file2\n";
+		std::cout<<"\nUnique words in "<<argv[3]<<std::endl;
 
 		for (unsigned int count = 1; count < unique.get_length(); count++) {
 			std::cout<<'\t'<<unique.get_node(count).word<<std::endl;
